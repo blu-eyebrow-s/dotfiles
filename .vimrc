@@ -2,7 +2,7 @@
 set guifont=Ricty\ Diminished\ Regular\ for\ Powerline:h14
 set backspace=2
 set enc=utf-8
-set fenc=utf-8
+"set fenc=utf-8
 "vi互換をオフする
 set nocompatible
 syntax enable
@@ -23,19 +23,18 @@ set tags=./tags,tags
 set tabstop=4
 set softtabstop=4
 set smarttab
-set shiftwidth=4
-set noexpandtab
+set expandtab
 set autoindent
 set list
-set listchars=tab:▸ ,trail:·
+set listchars=tab:· ,trail:·
 set number
+set relativenumber
 set ruler
 set iminsert=0
-
+set title
 set showmatch
 
 set whichwrap=b,s,[,],<,>
-set cursorline
 "システムレベルの貼り付けを使うとき便利なトーグル
 "有効・無効をf５キーで変換できる
 set pastetoggle=<f5>
@@ -81,19 +80,18 @@ set scrolloff=8
 
 
 " 現在開いているファイルを実行 (only php)
-function! ExecuteCurrentFile()
-    if &filetype == 'javascript'
-        exe '!node %'
-	endif
-	if &filetype == 'php'
-        exe '!' . &filetype . ' %'
-    endif
-endfunction
-nnoremap <Space> :call ExecuteCurrentFile()<CR>
+"function! ExecuteCurrentFile()
+"    if &filetype == 'javascript'
+"        exe '!node %'
+"	endif
+"	if &filetype == 'php'
+"        exe '!' . &filetype . ' %'
+"    endif
+"endfunction
+"nnoremap <Space> :call ExecuteCurrentFile()<CR>
 
 " bundleで管理するディレクトリを指定
 set runtimepath+=~/.vim/bundle/neobundle.vim/
-    
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -143,7 +141,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 "<C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
+"inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 "AutoComplPop like behavior.
 "let g:neocomplcache_enable_auto_select = 1
@@ -218,15 +216,19 @@ syn keyword htmlArg contained hidden role
 syn match   htmlArg "\<\(aria-[\-a-zA-Z0-9_]\+\)=" contained
 syn match   htmlArg contained "\s*data-[-a-zA-Z0-9_]\+"
 
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'pangloss/vim-javascript'
+"Javascript-syntax
+NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+NeoBundle 'scrooloose/nerdtree'
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+NeoBundle 'lilydjwg/colorizer'
 NeoBundle 'surround.vim'
 NeoBundle 'Shougo/unite.vim'
+"NeoBundle 'Shougo/vimfiler'
 """"""""""""""""""""""""""""""""""
 "            vimfiler            "
 """"""""""""""""""""""""""""""""""
 
-let g:vimfiler_as_default_explorer = 1
+"let g:vimfiler_as_default_explorer = 1
 
 """"""""""""""""""""""""""""""""""
 "             unite              "
@@ -252,7 +254,6 @@ NeoBundle 'elzr/vim-json'
 
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
-NeoBundle 'Shougo/vimfiler'
 "vimproc
 NeoBundle 'Shougo/vimproc', {
   \ 'build' : {
@@ -274,7 +275,7 @@ NeoBundle 'junegunn/vim-easy-align'
 vnoremap <silent> <Enter> :EasyAlign<cr>
 
 "powerline
-NeoBundle 'alpaca-tc/alpaca_powertabline'
+"NeoBundle 'alpaca-tc/alpaca_powertabline'
 NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
 NeoBundle 'Lokaltog/powerline-fontpatcher'
 
@@ -299,9 +300,9 @@ autocmd FileType php inoremap <silent> <buffer> </ </<C-x><C-o>
 "nerdtree : ctrl + eで開く
 "nnoremap <silent><C-e> :NERDTreeToggle<CR>
 "newtab キーバインド
-nnoremap st :<C-u>tabnew<CR>
+"nnoremap st :<C-u>tabnew<CR>
 "vimfiler キーバインド: ctrl + eで開く
-nnoremap <silent><C-e> :VimFiler<CR>
+"nnoremap <silent><C-e> :VimFiler<CR>
 "DB 設定
 let g:sql_type_default='mysql'
 let g:ref_phpmanual_path = $HOME . '/.vim/ref/php-chunked-xhtml'
@@ -336,43 +337,42 @@ autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
 "Jsonの整形（ダブルクオーテーションの隠し）
 let g:vim_json_syntax_conceal = 0
 
-function! s:get_syn_id(transparent)
-  let synid = synID(line("."), col("."), 1)
-  if a:transparent
-    return synIDtrans(synid)
-  else
-    return synid
-  endif
-endfunction
-function! s:get_syn_attr(synid)
-  let name = synIDattr(a:synid, "name")
-  let ctermfg = synIDattr(a:synid, "fg", "cterm")
-  let ctermbg = synIDattr(a:synid, "bg", "cterm")
-  let guifg = synIDattr(a:synid, "fg", "gui")
-  let guibg = synIDattr(a:synid, "bg", "gui")
-  return {
-        \ "name": name,
-        \ "ctermfg": ctermfg,
-        \ "ctermbg": ctermbg,
-        \ "guifg": guifg,
-        \ "guibg": guibg}
-endfunction
-function! s:get_syn_info()
-  let baseSyn = s:get_syn_attr(s:get_syn_id(0))
-  echo "name: " . baseSyn.name .
-        \ " ctermfg: " . baseSyn.ctermfg .
-        \ " ctermbg: " . baseSyn.ctermbg .
-        \ " guifg: " . baseSyn.guifg .
-        \ " guibg: " . baseSyn.guibg
-  let linkedSyn = s:get_syn_attr(s:get_syn_id(1))
-  echo "link to"
-  echo "name: " . linkedSyn.name .
-        \ " ctermfg: " . linkedSyn.ctermfg .
-        \ " ctermbg: " . linkedSyn.ctermbg .
-        \ " guifg: " . linkedSyn.guifg .
-        \ " guibg: " . linkedSyn.guibg
-endfunction
-command! SyntaxInfo call s:get_syn_info()
+"function! s:get_syn_id(transparent)
+"  let synid = synID(line("."), col("."), 1)
+"  if a:transparent
+"    return synIDtrans(synid)
+"  else
+"    return synid
+"  endif
+"endfunction
+"function! s:get_syn_attr(synid)
+"  let name = synIDattr(a:synid, "name")
+"  let ctermfg = synIDattr(a:synid, "fg", "cterm")
+"  let ctermbg = synIDattr(a:synid, "bg", "cterm")
+"  let guifg = synIDattr(a:synid, "fg", "gui")
+"  let guibg = synIDattr(a:synid, "bg", "gui")
+"  return {
+"        \ "name": name,
+"        \ "ctermfg": ctermfg,
+"        \ "ctermbg": ctermbg,
+"        \ "guifg": guifg,
+"        \ "guibg": guibg}
+"endfunction
+"function! s:get_syn_info()
+"  let baseSyn = s:get_syn_attr(s:get_syn_id(0))
+"  echo "name: " . baseSyn.name .
+"        \ " ctermfg: " . baseSyn.ctermfg .
+"        \ " ctermbg: " . baseSyn.ctermbg .
+"        \ " guifg: " . baseSyn.guifg .
+"        \ " guibg: " . baseSyn.guibg
+"  let linkedSyn = s:get_syn_attr(s:get_syn_id(1))
+"  echo "link to"
+"  echo "name: " . linkedSyn.name .
+"        \ " ctermfg: " . linkedSyn.ctermfg .
+"        \ " ctermbg: " . linkedSyn.ctermbg .
+"        \ " guifg: " . linkedSyn.guifg .
+"        \ " guibg: " . linkedSyn.guibg
+"endfunction
+"command! SyntaxInfo call s:get_syn_info()
 
 
-autocmd ColorScheme * highlight phpDefine guifg=#9370DB
