@@ -2,6 +2,7 @@
 set guifont=Ricty\ Diminished\ Regular\ for\ Powerline:h14
 set backspace=2
 set enc=utf-8
+
 "set fenc=utf-8
 "vi互換をオフする
 set nocompatible
