@@ -199,8 +199,12 @@ endif
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
 NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'tnker/vim-sencha-util'
+map <silent> <C-@> :SenchaMVVMToggle<CR>
+map <silent> <C-q> :SenchaParserReadCurrentLine<CR>
+
 NeoBundle 'taichouchou2/html5.vim'
-" HTML 5 tags
+" HTML 3 tags
 syn keyword htmlTagName contained article aside audio bb canvas command
 syn keyword htmlTagName contained datalist details dialog embed figure
 syn keyword htmlTagName contained header hgroup keygen mark meter nav output
