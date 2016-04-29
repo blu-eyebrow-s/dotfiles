@@ -5,7 +5,7 @@
 # # ------------------------------
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
-export PATH=$HOME/usr/local/Cellar/vim/7.4.1724/bin:$PATH
+export PATH=$HOME/usr/local/Cellar/vim/7.4.1755/bin:$PATH
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export PATH=$HOME/bin/Sencha/Cmd:$PATH
 export PATH="$(brew --prefix homebrew/php/php54)/bin:$PATH"
