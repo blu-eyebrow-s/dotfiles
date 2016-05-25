@@ -1,27 +1,29 @@
-"Backspace有効化
-set guifont=Ricty\ Diminished\ Regular\ for\ Powerline:h14
+""Backspace有効化
 set backspace=2
+" この２つがhtml,php,cssのロード時間を遅延する原因
 set enc=utf-8
-"set fenc=utf-8
-"vi互換をオフする
+set fenc=utf-8
+set guifont=Ricty\ Diminished\ Regular\ for\ Powerline:h14
+"let g:airline_extensions = ['branch', 'tabline']
+""vi互換をオフする
 set nocompatible
 syntax enable
+"colorscheme solarized
 let &t_Co=256
 set background=dark
-"let g:seoul256_background = 236
-"colorscheme
 colorscheme molokai
-
+"colorscheme hybrid
 "マウス操作
 set mouse=a
 "画面表示
 set laststatus=2
 
 "Set ctags
-set tags=./tags,tags
+"set tags=./tags,tags
 
 set tabstop=4
 set softtabstop=4
+set shiftwidth=4
 set smarttab
 set expandtab
 set autoindent
@@ -31,8 +33,10 @@ set number
 set relativenumber
 set ruler
 set iminsert=0
-set title
+"set title
 set showmatch
+"set tabline
+set showtabline=2
 
 set whichwrap=b,s,[,],<,>
 "システムレベルの貼り付けを使うとき便利なトーグル
@@ -44,7 +48,7 @@ set vb t_vb=
 "コメント折りたたみ機能の設定
 set foldmethod=marker
 "vim Speed up
-let loaded_matchparen=1
+"let loaded_matchparen=1
 "-----------------------------------------
 "Search
 "-----------------------------------------
@@ -57,8 +61,8 @@ set smartcase
 "検索語のハイライト
 set hlsearch
 "クリップボードにコピペ
-set clipboard=unnamed,autoselect
-
+set clipboard=unnamed
+",autoselect
 "検索結果のハイライトをESC連打で消す
 noremap <Esc><Esc> :nohlsearch<CR>
 
@@ -78,80 +82,127 @@ set noswapfile
 "-----------------------------------------
 set scrolloff=8
 
+"" bundleで管理するディレクトリを指定
+"set runtimepath+=~/.vim/bundle/neobundle.vim/
+"call neobundle#begin(expand('~/.vim/bundle/'))
+"NeoBundleFetch 'Shougo/neobundle.vim'
+"NeoBundle 'Shougo/neocomplcache'
+"NeoBundleLazy 'Shougo/neosnippet.vim', {
+"    \ "autoload": {"insert": 1}}
+"NeoBundle 'Shougo/neosnippet-snippets'
+"NeoBundle 'tnker/vim-sencha-util'
+"NeoBundle 'scrooloose/nerdtree'
+"NeoBundle 'lilydjwg/colorizer'
+"NeoBundle 'surround.vim'
+"NeoBundle 'Shougo/unite.vim'
+"NeoBundle 'mattn/emmet-vim'
+"NeoBundle 'othree/html5.vim'
+"NeoBundle 'junegunn/vim-easy-align'
+"NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
+"NeoBundle 'Lokaltog/powerline-fontpatcher'
+"NeoBundle 'tpope/vim-fugitive'
+"NeoBundle 'bling/vim-airline'
+"NeoBundle 'vim-airline/vim-airline-themes'
+"call neobundle#end()
+"filetype plugin indent on
 
-" 現在開いているファイルを実行 (only php)
-"function! ExecuteCurrentFile()
-"    if &filetype == 'javascript'
-"        exe '!node %'
-"	endif
-"	if &filetype == 'php'
-"        exe '!' . &filetype . ' %'
-"    endif
-"endfunction
-"nnoremap <Space> :call ExecuteCurrentFile()<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                       Vundle                        "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved, required
+filetype on                  " required
 
-" bundleで管理するディレクトリを指定
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-call neobundle#begin(expand('~/.vim/bundle/'))
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-NeoBundleFetch 'Shougo/neobundle.vim'
+Plugin 'Shougo/neocomplete'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-fugitive'
+Plugin 'mattn/emmet-vim'
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'scrooloose/nerdtree'
+Plugin 'lilydjwg/colorizer'
+Plugin 'surround.vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin 'othree/html5.vim'
+Plugin 'burnettk/vim-angular'
+Plugin 'valloric/youcompleteme'
 
-NeoBundle 'Shougo/neocomplcache'
+" colorscheme
+Plugin 'jacoborus/tender'
+call vundle#end()            " required
+filetype plugin indent on    " required
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 
+""""""""""""""""""""""""""""""""""""""""
+"            neocomplete               "
+""""""""""""""""""""""""""""""""""""""""
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-	\ 'default' : '',
-	\ 'vimshell' : $HOME.'/.vimshell_hist',
-	\ 'scheme' : $HOME.'/.gosh_completions'
-		\ }
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
 
-"Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-	let g:neocomplcache_keyword_patterns = {}
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
 endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-"Plugin key-mappings.
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-"SuperTab like snippets behavior.
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-"Recommended key-mappings.
-"<CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-"<TAB>: completion.
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"<C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-"inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-"AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
 
 " Shell like behavior(not recommended).
 "set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -161,222 +212,165 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-	let g:neocomplcache_omni_patterns = {}
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
 endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+"""""""neocomplete end"""""""""""""""""""""""
 
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
-
+" Disable AutoComplPop.
+"let g:acp_enableAtStartup = 0
+"" Use neocomplcache.
+"let g:neocomplcache_enable_at_startup = 1
+"" Use smartcase.
+"let g:neocomplcache_enable_smart_case = 1
+"" Use camel case completion.
+"let g:neocomplcache_enable_camel_case_completion = 1
+"" Use underbar completion.
+"let g:neocomplcache_enable_underbar_completion = 1
+"" Set minimum syntax keyword length.
+"let g:neocomplcache_min_syntax_length = 3
+"let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+"
+""Define keyword.
+"if !exists('g:neocomplcache_keyword_patterns')
+"	let g:neocomplcache_keyword_patterns = {}
+"endif
+"let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+""Plugin key-mappings.
+"imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+"smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+"inoremap <expr><C-g>     neocomplcache#undo_completion()
+"inoremap <expr><C-l>     neocomplcache#complete_common_string()
+"
+""Recommended key-mappings.
+""<CR>: close popup and save indent.
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+""<TAB>: completion.
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+""<C-h>, <BS>: close popup and delete backword char.
+"inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+""inoremap <expr><C-y>  neocomplcache#close_popup()
+"inoremap <expr><C-e>  neocomplcache#cancel_popup()
+""AutoComplPop like behavior.
+""let g:neocomplcache_enable_auto_select = 1
+"
+"
+"" Plugin key-mappings.
+"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"xmap <C-k>     <Plug>(neosnippet_expand_target)
+"
+"" SuperTab like snippets behavior.
+"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"\ "\<Plug>(neosnippet_expand_or_jump)"
+"\: pumvisible() ? "\<C-n>" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"\ "\<Plug>(neosnippet_expand_or_jump)"
+"\: "\<TAB>"
+"
 " For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+"if has('conceal')
+"  set conceallevel=2 concealcursor=niv
+"endif
 
-"syntastic シンタックス
-"NeoBundle 'scrooloose/syntastic'
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+" Sencha Plugin
+"map <silent> <C-@> :SenchaMVVMToggle<CR>
+"map <silent> <C-q> :SenchaParserReadCurrentLine<CR>
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'tnker/vim-sencha-util'
-map <silent> <C-@> :SenchaMVVMToggle<CR>
-map <silent> <C-q> :SenchaParserReadCurrentLine<CR>
+augroup fileTypeIndent
+        autocmd!
+        autocmd BufRead,BufNewFile *.php setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
+        autocmd BufRead,BufNewFile *.html setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
+        autocmd BufRead,BufNewFile *.js setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
+        autocmd BufRead,BufNewFile *.css setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+        autocmd BufRead,BufNewFile *.txt setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+        autocmd BufRead,BufNewFile *.xml setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
+        autocmd BufRead,BufNewFile *.scss setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+augroup END
 
-NeoBundle 'taichouchou2/html5.vim'
-" HTML 3 tags
-syn keyword htmlTagName contained article aside audio bb canvas command
-syn keyword htmlTagName contained datalist details dialog embed figure
-syn keyword htmlTagName contained header hgroup keygen mark meter nav output
-syn keyword htmlTagName contained progress time ruby rt rp section time
-syn keyword htmlTagName contained source figcaption
-syn keyword htmlArg contained autofocus autocomplete placeholder min max
-syn keyword htmlArg contained contenteditable contextmenu draggable hidden
-syn keyword htmlArg contained itemprop list sandbox subject spellcheck
-syn keyword htmlArg contained novalidate seamless pattern formtarget
-syn keyword htmlArg contained formaction formenctype formmethod
-syn keyword htmlArg contained sizes scoped async reversed sandbox srcdoc
-syn keyword htmlArg contained hidden role
-syn match   htmlArg "\<\(aria-[\-a-zA-Z0-9_]\+\)=" contained
-syn match   htmlArg contained "\s*data-[-a-zA-Z0-9_]\+"
-
-"Javascript-syntax
-NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
-NeoBundle 'scrooloose/nerdtree'
+" closetag setting
+au Filetype html,xml,xsl source ~/.vim/scripts/closetag.vim 
+" NERDTreeToggle Setting
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
-NeoBundle 'lilydjwg/colorizer'
-NeoBundle 'surround.vim'
-NeoBundle 'Shougo/unite.vim'
-"NeoBundle 'Shougo/vimfiler'
-""""""""""""""""""""""""""""""""""
-"            vimfiler            "
-""""""""""""""""""""""""""""""""""
 
-"let g:vimfiler_as_default_explorer = 1
-
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
 """"""""""""""""""""""""""""""""""
 "             unite              "
 """"""""""""""""""""""""""""""""""
-
-let g:unite_update_time = 1000
-
-"nnoremap <silent> <C-r>  :<C-u>Unite file_mru<CR>
-nnoremap <silent> <C-n>  :<C-u>Unite buffer <CR>
-nnoremap <silent> <Leader>d :<C-u>Unite file<CR>
-
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-  " Overwrite settings.
-  imap <buffer> jj <Plug>(unite_insert_leave)
-  imap <buffer> <ESC> <ESC><ESC>
-  nnoremap <buffer> t G
-  startinsert
-endfunction
+"let g:unite_update_time = 1000
+""nnoremap <silent> <C-u>  :<C-u>Unite file_mru<CR>
+"nnoremap <silent> <C-n>  :<C-u>Unite buffer <CR>
+"nnoremap <silent> <Leader>d :<C-u>Unite file<CR>
+"autocmd FileType unite call s:unite_my_settings()
+"function! s:unite_my_settings()
+"  " Overwrite settings.
+"  imap <buffer> jj <Plug>(unite_insert_leave)
+"  imap <buffer> <ESC> <ESC><ESC>
+"  nnoremap <buffer> t G
+"  startinsert
+"endfunction
 
 "Vim Json Setting
-NeoBundle 'elzr/vim-json'
-
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'chriskempson/vim-tomorrow-theme'
-"vimproc
-NeoBundle 'Shougo/vimproc', {
-  \ 'build' : {
-  \ 'windows' : 'make -f make_mingw32.mak',
-  \ 'cygwin' : 'make -f make_cygwin.mak',
-  \ 'mac' : 'make -f make_mac.mak',
-  \ 'unix' : 'make -f make_unix.mak',
-  \    },
-  \ }
-
-NeoBundle 'othree/html5.vim'
-let g:html5_event_handler_attributes_complete = 0
-let g:html5_event_handler_attributes_complete = 0
-let g:html5_microdata_attributes_complete = 0
-let g:html5_aria_attributes_complete = 0
+"let g:html5_event_handler_attributes_complete = 0
+"let g:html5_event_handler_attributes_complete = 0
+"let g:html5_microdata_attributes_complete = 0
+"let g:html5_aria_attributes_complete = 0
 
 "easy-align
-NeoBundle 'junegunn/vim-easy-align'
 vnoremap <silent> <Enter> :EasyAlign<cr>
 
 "powerline
-"NeoBundle 'alpaca-tc/alpaca_powertabline'
-NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
-NeoBundle 'Lokaltog/powerline-fontpatcher'
+"let g:Powerline_symbols = 'compatible'
 
-"MarkDown
-NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'kannokanno/previm'
-NeoBundle 'tyru/open-browser.vim'
-au BufRead,BufNewFile *.md set filetype=markdown
-let g:previm_open_cmd = 'open -a firefox'
-
-
-call neobundle#end()
-
-filetype plugin indent on
-
-runtime macros/matchit.vim
+"runtime macros/matchit.vim
 
 "</で閉じタグを自動補完
 autocmd FileType html inoremap <silent> <buffer> </ </<C-x><C-o>
 autocmd FileType php inoremap <silent> <buffer> </ </<C-x><C-o>
 
-"nerdtree : ctrl + eで開く
-"nnoremap <silent><C-e> :NERDTreeToggle<CR>
-"newtab キーバインド
-"nnoremap st :<C-u>tabnew<CR>
-"vimfiler キーバインド: ctrl + eで開く
-"nnoremap <silent><C-e> :VimFiler<CR>
-"DB 設定
-let g:sql_type_default='mysql'
-let g:ref_phpmanual_path = $HOME . '/.vim/ref/php-chunked-xhtml'
-
-"PowerLine の設定
-"let g:Powerline_symbols = 'fancy'
-"文字化けするならこっち使う
-let g:Powerline_symbols = 'compatible'
-
-"PHP開発環境設定
-let php_sql_query = 1
-let php_baselib = 1
-let php_htmlInStrings = 1
-let php_noShortTags = 1
-let php_parent_error_close = 1
-
-
-augroup fileTypeIndent
-	autocmd!
-		autocmd BufRead,BufNewFile *.php setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab
-		autocmd BufRead,BufNewFile *.html setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab
-		autocmd BufRead,BufNewFile *.js setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab
-		autocmd BufRead,BufNewFile *.css setlocal shiftwidth=2 softtabstop=2 tabstop=2 noexpandtab
-		autocmd BufRead,BufNewFile *.txt setlocal shiftwidth=2 softtabstop=2 tabstop=2 noexpandtab
-		autocmd BufRead,BufNewFile *.xml setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab
-		autocmd BufRead,BufNewFile *.scss setlocal shiftwidth=2 softtabstop=2 tabstop=2 noexpandtab
-augroup END
-
-"Vimfiler configuration
-autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
-
 "Jsonの整形（ダブルクオーテーションの隠し）
 let g:vim_json_syntax_conceal = 0
 
-"function! s:get_syn_id(transparent)
-"  let synid = synID(line("."), col("."), 1)
-"  if a:transparent
-"    return synIDtrans(synid)
-"  else
-"    return synid
-"  endif
-"endfunction
-"function! s:get_syn_attr(synid)
-"  let name = synIDattr(a:synid, "name")
-"  let ctermfg = synIDattr(a:synid, "fg", "cterm")
-"  let ctermbg = synIDattr(a:synid, "bg", "cterm")
-"  let guifg = synIDattr(a:synid, "fg", "gui")
-"  let guibg = synIDattr(a:synid, "bg", "gui")
-"  return {
-"        \ "name": name,
-"        \ "ctermfg": ctermfg,
-"        \ "ctermbg": ctermbg,
-"        \ "guifg": guifg,
-"        \ "guibg": guibg}
-"endfunction
-"function! s:get_syn_info()
-"  let baseSyn = s:get_syn_attr(s:get_syn_id(0))
-"  echo "name: " . baseSyn.name .
-"        \ " ctermfg: " . baseSyn.ctermfg .
-"        \ " ctermbg: " . baseSyn.ctermbg .
-"        \ " guifg: " . baseSyn.guifg .
-"        \ " guibg: " . baseSyn.guibg
-"  let linkedSyn = s:get_syn_attr(s:get_syn_id(1))
-"  echo "link to"
-"  echo "name: " . linkedSyn.name .
-"        \ " ctermfg: " . linkedSyn.ctermfg .
-"        \ " ctermbg: " . linkedSyn.ctermbg .
-"        \ " guifg: " . linkedSyn.guifg .
-"        \ " guibg: " . linkedSyn.guibg
-"endfunction
-"command! SyntaxInfo call s:get_syn_info()
+"""""""""""""""""""""""""""""""""""""
+"            Syntastic              "
+"""""""""""""""""""""""""""""""""""""
+" Execute Pathogen
+" Syntasticのため、Pathogenをインストール
+execute pathogen#infect()
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 
+"""""""""""""""""""""""""""""""""""""
+"              Airline              "
+"""""""""""""""""""""""""""""""""""""
+let g:airline_extensions = ['tabline', 'branch']
+let g:airline_right_sep = ' '
+let g:airline_left_sep = ' '
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#right_sep = ' '
+let g:airline#extensions#tabline#right_alt_sep = '|'
 
+let g:airline_theme='molokai'
+let g:airline_powerline_fonts = 1
+let g:Powerline_symbols = 'fancy'

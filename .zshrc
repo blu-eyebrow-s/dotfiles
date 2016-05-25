@@ -5,7 +5,7 @@
 # # ------------------------------
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
-export PATH=$HOME/usr/local/Cellar/vim/7.4.1755/bin:$PATH
+export PATH=$HOME/usr/local/Cellar/vim/7.4.1832/bin:$PATH
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export PATH=$HOME/bin/Sencha/Cmd:$PATH
 export PATH="$(brew --prefix homebrew/php/php54)/bin:$PATH"
@@ -59,6 +59,12 @@ bindkey "^N" history-beginning-search-forward-end
 function history-all { history -E 1 }
 autoload -U colors; colors
 
+# -----------------------------
+# git-prompt
+# git-completion
+# -----------------------------
+source ~/.git-prompt.sh
+#source ~/.git-completion.zsh
 # ------------------------------
 # Look And Feel Settings
 # ------------------------------
@@ -85,11 +91,18 @@ esac
 ## #Prompt ###
 ## プロンプトに色を付ける
 # 一般ユーザ時
+setopt prompt_subst
 autoload colors
 colors
-local cur_dir="%B%F{red}[Current Path: %~ ]%f%b"$'\n'
-local main="%B%F{green}%n%f%b@%F{blue}%m%f"
-PROMPT=" $cur_dir$main %F{yellow}>>%f "
+#local cur_dir="%F{white} %~ %f"$'\n'
+#local main="%B%F{black}%n%f%b@%F{yellow}%m%f"
+#PROMPT=" $cur_dir$main %F{cyan}>>%f "
+#RPROMPT='$(__git_ps1 "%s")'
+
+local cur_dir="%F{white} %~ %f"$'\n'
+local main="%B%F{black}%n%f%b@%F{yellow}%m%f"
+PROMPT=" $cur_dir %F{cyan}>%f "
+RPROMPT='$(__git_ps1 "%s")'
 
 # ------------------------------
 # Other Settings
@@ -120,6 +133,8 @@ alias la='ls -Gal'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
+alias desk='cd ~/Desktop'
+alias down='cd ~/Downloads'
 
 # cdコマンド実行後、lsを実行する
 #function cd() {
