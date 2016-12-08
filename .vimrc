@@ -310,6 +310,7 @@ augroup fileTypeIndent
     autocmd BufRead,BufNewFile *.xml setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
     autocmd BufRead,BufNewFile *.scss setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
     autocmd BufRead,BufNewFile *.sql setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
+    autocmd BufRead,BufNewFile *.blade.php setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
 augroup END
 
 "Vimfiler configuration

@@ -6,16 +6,20 @@
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=$HOME/usr/local/Cellar/vim/7.4.1832/bin:$PATH
+export PATH=$HOME/usr/local/Cellar/python/2.7.11/bin:$PATH
+# export PATH=$HOME/usr/local/Cellar/python3/3.5.2_3/bin:$PATH
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=$HOME/.composer/vendor/bin:$PATH
+export PATH="$HOME/.pyenv/bin:$PATH"
 export PATH=$HOME/bin/Sencha/Cmd:$PATH
-export PATH="$(brew --prefix homebrew/php/php54)/bin:$PATH"
+export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
+#export PATH="$(brew --prefix homebrew/php/php54)/bin:$PATH"
 export PATH=/usr/local/Cellar/mysql56/5.6.29/bin:$PATH
 #MAMPを起動しないでphp5.3を使うなら、このPATHをコメントアウトすること
 #export PATH=/Applications/MAMP/bin/php/php5.6.10/bin:$PATH
 
 export EDITOR=vim        # エディタをvimに設定
 export LANG=ja_JP.UTF-8  # 文字コードをUTF-8に設定
-export PATH=$PATH:~/Library/Python/2.7/bin
 export CLICOLOR=1
 export TERM=xterm-256color
 
@@ -99,7 +103,7 @@ colors
 #PROMPT=" $cur_dir$main %F{cyan}>>%f "
 #RPROMPT='$(__git_ps1 "%s")'
 
-local cur_dir="%F{white} %~ %f"$'\n'
+local cur_dir="%F{gray} %~ %f"$'\n'
 local main="%B%F{black}%n%f%b@%F{yellow}%m%f"
 PROMPT=" $cur_dir %F{cyan}>%f "
 RPROMPT='$(__git_ps1 "%s")'
@@ -133,13 +137,14 @@ alias la='ls -Gal'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
+alias vi='vim'
+alias vim='vim'
+alias nv='nvim'
 alias desk='cd ~/Desktop'
 alias down='cd ~/Downloads'
-
-# cdコマンド実行後、lsを実行する
-#function cd() {
-#  builtin cd $@ && ls;
-#}
+alias ng='cd ~/Sites/angular'
+alias doc='cd ~/Documents'
+alias blog='cd ~/code/react/react-laravel-app/'
 
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
@@ -158,11 +163,11 @@ function tmux_automatically_attach_session()
         ! is_exists 'tmux' && return 1
 
         if is_tmux_runnning; then
-            echo "${fg_bold[red]} _____ __  __ _   ___  __ ${reset_color}"
-            echo "${fg_bold[red]}|_   _|  \/  | | | \ \/ / ${reset_color}"
-            echo "${fg_bold[red]}  | | | |\/| | | | |\  /  ${reset_color}"
-            echo "${fg_bold[red]}  | | | |  | | |_| |/  \  ${reset_color}"
-            echo "${fg_bold[red]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
+            echo "${fg_bold[cyan]} _____ __  __ _   ___  __ ${reset_color}"
+            echo "${fg_bold[cyan]}|_   _|  \/  | | | \ \/ / ${reset_color}"
+            echo "${fg_bold[cyan]}  | | | |\/| | | | |\  /  ${reset_color}"
+            echo "${fg_bold[cyan]}  | | | |  | | |_| |/  \  ${reset_color}"
+            echo "${fg_bold[cyan]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
         elif is_screen_running; then
             echo "This is on screen."
         fi
